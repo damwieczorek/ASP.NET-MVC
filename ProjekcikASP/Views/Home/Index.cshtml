@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProjekcikASP.Models.Movies>
+@{
+    ViewBag.Title = "Strona główna";
+}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<div class="container">
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <a class="btn btn-secondary" href="@Url.Action("Index", new { sortOrder = ViewBag.DateSortParm})" role="button">Premiera</a>
+        <a class="btn btn-secondary" href="@Url.Action("Index", new { sortOrder = ViewBag.PriceSortParm})" role="button">Cena</a>
+
+        <div class="btn-group" role="group">
+            <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Gatunek
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                @foreach (var cat in ViewBag.Caty)
+                {
+                    <a class="dropdown-item" href="@Url.Action("Index", new { categoryName = cat.Category})">@cat.Category</a>
+                }
+            </div>
+        </div>
+        <form asp-controller="Home" asp-action="Index">
+            <div class="input-group ml-1">
+
+                <input type="text" class="form-control" name="searchString" placeholder="Wyszukaj film" aria-label="Wyszukaj filmu" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <input type="submit" value="Szukaj" class="btn btn-outline-secondary" />
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+
+    @foreach (var item in Model)
+    {
+        <div class="grid">
+            <figure class="effect-chico">
+                <img src="@item.MoviePhoto" />
+                <figcaption>
+                    <h2><span>@item.MovieName</span></h2>
+                    <p>Opis: @item.MovieDescription.Substring(0,50) ...</p>
+                    <p>Cena: @item.MovieRentPrice zł</p>
+                    <a href="@Url.Action("Details", "Movies", new { id = item.Id })">Wypożycz</a>
+                </figcaption>
+            </figure>
+
+        </div>
+
+
+    }
+
+</div>

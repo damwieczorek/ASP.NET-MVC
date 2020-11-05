@@ -1,0 +1,13 @@
+﻿@model ProjekcikASP.Models.RentHistory
+@{
+    ViewBag.Title = "Rent Successful";
+}
+<div class="jumbotron">
+    <h1 class="display-4">Wypożyczono pomyślnie film <strong>@ViewBag.Movie.MovieName</strong>!</h1>
+    <p class="lead">Dziękujemy za wypożyczenie filmu <strong> @ViewBag.Movie.MovieName</strong>, data wygaśniecia filmu to: <strong>@Model.RentDate.AddDays(Model.RentTime)</strong></p>
+    <p class="lead">Całkowity koszt wypożyczenia: <strong>@((ViewBag.Movie.MovieRentPrice * Model.RentTime).ToString("c"))</strong></p>
+    <hr class="my-4">
+    <p>Aby sprawdzić datę wygaśnięcia filmu, zajrzyj do profilu do zakładki Historia wypożyczeń.</p>
+    <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Home")" role="button">Powrót na stronę główną</a>
+</div>
+

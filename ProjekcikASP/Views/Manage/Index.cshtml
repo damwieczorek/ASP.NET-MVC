@@ -1,0 +1,118 @@
+﻿@model ProjekcikASP.Models.IndexViewModel
+@{
+    ViewBag.Title = "Zarządzaj";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div class="container-fluid">
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Ustawienia konta
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse " aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <h4>Zmień ustawienia konta</h4>
+                    <hr />
+                    <dl class="dl-horizontal">
+                        <dt>Hasło:</dt>
+                        <dd>
+                            [
+                            @if (Model.HasPassword)
+                            {
+                                @Html.ActionLink("Zmień hasło", "ChangePassword")
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Utwórz", "SetPassword")
+                            }
+                            ]
+                        </dd>
+                        <dt>Logowania zewnętrzne:</dt>
+                        <dd>
+                            @Model.Logins.Count [
+                            @Html.ActionLink("Zarządzaj", "ManageLogins") ]
+                        </dd>
+
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Historia wypożyczeń
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nazwa Filmu</th>
+                                <th scope="col">Data wypożyczenia</th>
+                                <th scope="col">Data Oddania</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{var i = 1; }
+                            @foreach (var rent in ViewBag.rentHistory)
+                            {
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td>@rent.Movie.MovieName</td>
+                                    <td>@rent.RentDate</td>
+                                    <td>@rent.RentDate.AddDays(rent.RentTime)</td>
+                                </tr>
+                                i++;
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Saldo konta
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                    <form asp-controller="Manage" asp-action="AddBalance" method="post">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">PLN</span>
+                            </div>
+                            <input type="number" name="cash" class="form-control" placeholder="Wpisz kwotę doładowania" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                                <span class="input-group-text">.00</span>
+                                <input type="submit" class="btn btn-danger" value="Doładuj" />
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <p > Saldo: @ViewBag.saldo</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

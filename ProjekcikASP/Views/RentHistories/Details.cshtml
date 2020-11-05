@@ -1,0 +1,55 @@
+﻿@model ProjekcikASP.Models.RentHistory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RentHistory</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Movie.MovieName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Movie.MovieName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RentTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RentTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
